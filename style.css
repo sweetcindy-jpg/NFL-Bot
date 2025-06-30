@@ -1,0 +1,284 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+    background-color: #212121;
+    color: #E0E0E0;
+    overflow: hidden;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.chevron-down {
+    width: 20px;
+    height: 20px;
+    color: #BDBDBD;
+}
+
+.header-center .get-plus-btn {
+    background-color: #5C4033; /* Darker Purple/Brown to match image better */
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.get-plus-btn .star-icon {
+    stroke: white;
+}
+.header-right .national-logo{
+    width: 100px;
+    height: 100px;
+    background-color: #757575;
+    border-radius: 50%;
+}
+
+
+.chat-main {
+    flex-grow: 1; /* Allows chat-main to take available space */
+    display: flex;
+    flex-direction: column;
+    /* Removed justify-content: flex-end; as it's better handled by chat-messages */
+    padding: 20px;
+    overflow-y: auto; /* Enables vertical scrolling for the main chat area */
+}
+
+.main-prompt {
+    font-size: 3em;
+    font-weight: 500;
+    color: #616161;
+    margin-bottom: 20px;
+    align-self: center; /* Center the prompt */
+    /* Add this to ensure the prompt is at the top of the scrollable area when messages are few */
+    margin-top: auto; 
+}
+
+/* Styles for chat messages */
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto; /* Center the messages */
+    padding-bottom: 20px; /* Space from the input */
+    /* flex-grow: 1; */ /* Removed this from here, better on chat-main */
+    /* overflow-y: auto; */ /* Removed this from here, handled by chat-main */
+}
+
+.user-message, .ai-message {
+    padding: 10px 15px;
+    border-radius: 18px;
+    margin-bottom: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+}
+
+.ai-message {
+    background-color: #424242;
+    color: #E0E0E0;
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+}
+
+.chat-footer {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.input-wrapper {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    align-items: center;
+    background-color: #333333;
+    border: 1px solid #555;
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+.chat-input {
+    flex-grow: 1;
+    border: none;
+    background: none;
+    color: #E0E0E0;
+    font-size: 1.1em;
+    padding: 15px 10px;
+    outline: none;
+}
+
+.chat-input::placeholder {
+    color: #757575;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #BDBDBD;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn svg {
+    stroke: currentColor;
+    fill: currentColor;
+}
+
+.plus-btn {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.tools-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #424242;
+    padding: 6px 12px;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.tools-btn span {
+    font-size: 1em;
+}
+
+.input-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.typing-indicator-btn {
+    background-color: #555;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+}
+
+.typing-indicator-btn svg {
+    fill: #BDBDBD;
+}
+
+/* From Uiverse.io by Adrwaan - Adapted for chat footer */
+.chat-footer-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+  
+.chat-footer-card::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: tomato;
+    border-radius: 50%;
+    z-index: -1;
+    transition: all 0.4s;
+    animation: animate 5s linear infinite;
+}
+  
+.chat-footer-card:hover::before {
+    width: 110%;
+    height: 110%;
+}
+  
+.chat-footer .paperplane {
+    fill: #888;
+    width: 20px;
+    height: 20px;
+    transition: 0.4s all;
+}
+  
+.chat-footer-card:hover .paperplane {
+    transform: scale(1.1) translateY(-5%) rotate(18deg);
+}
+  
+@keyframes animate {
+    50% {
+        filter: hue-rotate(350deg);
+    }
+}
+.typing-indicator {
+    display: inline-block;
+}
+
+.typing-indicator span {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #E0E0E0;
+    margin: 0 1px;
+    animation: blink 1.4s infinite both;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0.2;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.2;
+    }
+}
