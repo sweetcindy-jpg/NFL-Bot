@@ -12,8 +12,8 @@ body, html {
 .chat-container {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Fallback for browsers that do not support svh */
-    height: 100svh;
+    height: 100vh;
+    width: 100%;
 }
 
 .chat-header {
@@ -24,6 +24,7 @@ body, html {
     width: 100%;
     box-sizing: border-box;
     flex-shrink: 0;
+    border-bottom: 1px solid #333;
 }
 
 .header-left {
@@ -34,43 +35,20 @@ body, html {
     font-weight: 500;
 }
 
-.chevron-down {
-    width: 20px;
-    height: 20px;
-    color: #BDBDBD;
-}
-
-.header-center .get-plus-btn {
-    background-color: #5C4033; /* Darker Purple/Brown to match image better */
-    color: white;
-    border: none;
-    padding: 8px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.9em;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.get-plus-btn .star-icon {
-    stroke: white;
-}
-.header-right .national-logo{
-    width: 100px;
-    height: 100px;
-    background-color: #757575;
+.header-right .national-logo img {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 
 .chat-main {
-    flex-grow: 1; /* Allows chat-main to take available space */
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     padding: 20px;
-    overflow-y: auto; /* Enables vertical scrolling for the main chat area */
+    overflow-y: auto;
 }
 
 .main-prompt {
@@ -78,49 +56,51 @@ body, html {
     font-weight: 500;
     color: #616161;
     margin-bottom: 20px;
-    align-self: center; /* Center the prompt */
-    margin-top: auto; 
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
-/* Styles for chat messages */
 .chat-messages {
     display: flex;
     flex-direction: column;
     width: 100%;
     max-width: 800px;
-    margin: 0 auto; /* Center the messages */
-    padding-bottom: 20px; /* Space from the input */
+    margin: 0 auto;
+    padding-bottom: 20px;
 }
 
 .user-message, .ai-message {
-    padding: 10px 15px;
-    border-radius: 18px;
+    padding: 12px 18px;
+    border-radius: 20px;
     margin-bottom: 10px;
-    max-width: 70%;
+    max-width: 75%;
     word-wrap: break-word;
+    line-height: 1.4;
 }
 
 .user-message {
-    background-color: #007bff;
+    background-color: #377dff;
     color: white;
     align-self: flex-end;
-    border-bottom-right-radius: 2px;
+    border-bottom-right-radius: 4px;
 }
 
 .ai-message {
     background-color: #424242;
     color: #E0E0E0;
     align-self: flex-start;
-    border-bottom-left-radius: 2px;
+    border-bottom-left-radius: 4px;
 }
 
 .chat-footer {
-    padding: 10px 20px;
+    padding: 20px;
     display: flex;
     justify-content: center;
     width: 100%;
     box-sizing: border-box;
     flex-shrink: 0;
+    border-top: 1px solid #333;
 }
 
 .input-wrapper {
@@ -130,8 +110,8 @@ body, html {
     align-items: center;
     background-color: #333333;
     border: 1px solid #555;
-    border-radius: 20px;
-    padding: 5px 5px 5px 15px;
+    border-radius: 28px;
+    padding: 5px 10px 5px 20px;
 }
 
 .chat-input {
@@ -139,100 +119,63 @@ body, html {
     border: none;
     background: none;
     color: #E0E0E0;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.1em;
+    font-size: 1em;
     padding: 10px;
     outline: none;
     resize: none;
-    max-height: 100px;
-    overflow-y: auto;
+    /* Added max-height to enable scrolling */
+    max-height: 100px; 
+    overflow-y: auto; /* Show scrollbar when needed */
+    font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+    
+    /* --- Styles for Firefox Scrollbar --- */
+    scrollbar-width: thin;
+    scrollbar-color: #616161 #333333;
 }
 
 .chat-input::placeholder {
     color: #757575;
 }
 
-.icon-btn {
-    background: none;
-    border: none;
-    color: #BDBDBD;
-    cursor: pointer;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+/* --- START: CUSTOM SCROLLBAR STYLES (for Chrome, Safari, Edge) --- */
+.chat-input::-webkit-scrollbar {
+    width: 8px;
 }
 
-.icon-btn svg {
-    stroke: currentColor;
-    fill: currentColor;
+.chat-input::-webkit-scrollbar-track {
+    background: transparent;
 }
 
-.plus-btn {
-    font-size: 24px;
-    font-weight: 300;
-}
-
-.tools-btn {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background-color: #424242;
-    padding: 6px 12px;
-    border-radius: 10px;
-    margin-right: 10px;
-}
-
-.tools-btn span {
-    font-size: 1em;
-}
-
-.input-actions {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.typing-indicator-btn {
+.chat-input::-webkit-scrollbar-thumb {
     background-color: #555;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
+    border-radius: 20px;
+    border: 2px solid #333333; /* Creates padding around the thumb */
 }
 
-.typing-indicator-btn svg {
-    fill: #BDBDBD;
+.chat-input::-webkit-scrollbar-thumb:hover {
+    background-color: #616161;
 }
+/* --- END: CUSTOM SCROLLBAR STYLES --- */
 
-/* From Uiverse.io by Adrwaan - Adapted for chat footer */
+
 .chat-footer-card {
     display: flex;
     justify-content: center;
     align-items: center;
-    align-self: flex-end; /* Align to bottom */
     position: relative;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-end; /* Align button to the bottom of the wrapper */
+    margin-bottom: 5px; /* Adjust vertical position */
 }
-  
-.chat-footer-card::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: tomato;
-    border-radius: 50%;
-    z-index: -1;
-    transition: all 0.4s;
-    animation: animate 5s linear infinite;
-}
-  
-.chat-footer-card:hover::before {
-    width: 110%;
-    height: 110%;
+
+.chat-footer-card:hover {
+    background-color: #444;
 }
   
 .chat-footer .paperplane {
@@ -245,7 +188,7 @@ body, html {
 .chat-footer-card:hover .paperplane {
     transform: scale(1.1) translateY(-5%) rotate(18deg);
 }
-  
+
 @keyframes animate {
     50% {
         filter: hue-rotate(350deg);
