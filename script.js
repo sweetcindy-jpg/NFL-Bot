@@ -5,13 +5,6 @@ const mainPrompt = document.querySelector('.main-prompt'); // Get the main promp
 
 const rand_id = 'session_random_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
 
-// // **IMPORTANT: Replace with your actual n8n Webhook URL**
-// const N8N_WEBHOOK_URL = 'https://jikster987.app.n8n.cloud/webhook/61561713-5215-440b-8f89-341cca7cb172'; 
-// // Test Webhook URL
-// // const N8N_WEBHOOK_URL = 'https://jikster987.app.n8n.cloud/webhook-test/61561713-5215-440b-8f89-341cca7cb172';
-
-
-
 // **IMPORTANT: Replace with your actual n8n Webhook URL**
 const N8N_WEBHOOK_URL = 'https://caddy.app.n8n.cloud/webhook/61561713-5215-440b-8f89-341cca7cb172'; 
 
@@ -42,8 +35,14 @@ async function sendMessage() {
     const query = userInput.value.trim();
     if (query === '') return;
 
+    // Disable input and send button
+    userInput.disabled = true;
+    sendButton.disabled = true;
+    sendButton.style.opacity = 0.5; // Optional: visually indicate disabled state
+
     appendMessage('user', query);
     userInput.value = ''; // Clear input
+    userInput.style.height = 'auto'; // Reset height
 
     // Create and append the typing indicator
     const typingIndicator = document.createElement('div');
@@ -90,15 +89,30 @@ async function sendMessage() {
         // Remove typing indicator and show error
         chatMessages.removeChild(typingIndicator); 
         appendMessage('ai', 'Oops! Something went wrong. Please try again later.');
+    } finally {
+        // Re-enable input and send button after response or error
+        userInput.disabled = false;
+        sendButton.disabled = false;
+        sendButton.style.opacity = 1; // Optional: restore original opacity
+        userInput.focus(); // Optional: put focus back to input
     }
 }
 
 sendButton.addEventListener('click', sendMessage);
-userInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
+
+userInput.addEventListener('keydown', (event) => {
+    // Only send message if input is not disabled and Enter is pressed without Shift
+    if (event.key === 'Enter' && !event.shiftKey && !userInput.disabled) {
+        event.preventDefault(); // Prevent default Enter behavior (new line)
         sendMessage();
     }
 });
+
+userInput.addEventListener('input', () => {
+    userInput.style.height = 'auto';
+    userInput.style.height = (userInput.scrollHeight) + 'px';
+});
+
 
 // Initial greeting
 // The initial greeting will be handled by the main-prompt in HTML
